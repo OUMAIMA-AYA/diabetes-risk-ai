@@ -91,12 +91,12 @@ plt.show()
 print("\nClassification Report :")
 print(classification_report(y_test, predictions))
 
-
+#ces 4 modeles essaienet tous de resoudre le meme prb mais ils utilisent des methodes diff
 models = {
-    "Logistic Regression": LogisticRegression(max_iter=1000),
-    "Decision Tree": DecisionTreeClassifier(random_state=42),
-    "Random Forest": RandomForestClassifier(random_state=42),
-    "KNN": KNeighborsClassifier()
+    "Logistic Regression": LogisticRegression(max_iter=1000),#il cherche une formule mathematique qui separe les personnes diabetiques des personnes non diabetiques 
+    "Decision Tree": DecisionTreeClassifier(random_state=42),#il fonctionne comme une serie de questions , il construit un arbre de decisions
+    "Random Forest": RandomForestClassifier(random_state=42),#au lieu d'un seul arbre , il cree beaucoup d'arbres
+    "KNN": KNeighborsClassifier()#il ne construit presque rien , il cherche les patients qui ressemble le plus le nouveau passient qui vient d'arriver
 }
 
 for name, model in models.items():
