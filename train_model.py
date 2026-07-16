@@ -1,6 +1,9 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression #un algo de classification 
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import (
     accuracy_score,
@@ -52,7 +55,7 @@ print("Taille de X_test :", X_test.shape)
 # Entraîner le modèle
 # ==========================
 
-model = RandomForestClassifier(random_state=42)
+model = RandomForestClassifier(random_state=42) #la creation du model (il est vide , il ne connait encore rien)
 model.fit(X_train, y_train)
 
 # ==========================
@@ -62,12 +65,12 @@ model.fit(X_train, y_train)
 predictions = model.predict(X_test)
 
 # ==========================
-# Évaluer le modèle
+# "Évaluer le modèle"
 # ==========================
 
-accuracy = accuracy_score(y_test, predictions)
-precision = precision_score(y_test, predictions)
-recall = recall_score(y_test, predictions)
+accuracy = accuracy_score(y_test, predictions) #on compare
+precision = precision_score(y_test, predictions)#quand le modele dit diabetique a t il raison ?
+recall = recall_score(y_test, predictions)#Parmi tous les vrais diabétiques, combien le modèle a-t-il détectés ?
 
 print(f"Accuracy  : {accuracy:.2%}")
 print(f"Precision : {precision:.2%}")
@@ -80,9 +83,28 @@ print("\nConfusion Matrix :")
 print(cm)
 
 disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+#cette partie affiche la matrice sous forme de graphique
 disp.plot()
 plt.show()
 
 # Rapport complet
 print("\nClassification Report :")
 print(classification_report(y_test, predictions))
+
+
+models = {
+    "Logistic Regression": LogisticRegression(max_iter=1000),
+    "Decision Tree": DecisionTreeClassifier(random_state=42),
+    "Random Forest": RandomForestClassifier(random_state=42),
+    "KNN": KNeighborsClassifier()
+}
+
+for name, model in models.items():
+
+    model.fit(X_train, y_train)
+
+    predictions = model.predict(X_test)
+
+    accuracy = accuracy_score(y_test, predictions)
+
+    print(f"{name} : {accuracy:.2%}")
