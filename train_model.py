@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
+import joblib 
 from sklearn.linear_model import LogisticRegression #un algo de classification 
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
@@ -102,6 +103,10 @@ models = {
 for name, model in models.items():
 
     model.fit(X_train, y_train)
+
+    joblib.dump(model, "diabetes_model.pkl")
+    
+    print("✅ Modèle sauvegardé avec succès !")
 
     predictions = model.predict(X_test)
 
